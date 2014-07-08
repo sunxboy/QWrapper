@@ -1,0 +1,113 @@
+
+
+<table class="fstable" id="fstable0" name="fstable0" >
+		           <tr>
+		                <!--td><strong>Org</strong></td>
+		                <td><strong>Dst</strong></td-->
+		                <td><strong>Dep</strong></td>
+		                <td><strong>Arr</strong></td>
+		                <td><strong>Flight</strong></td>
+		                <!--td><strong>VIA</strong></td--><td><strong>T</strong></td></tr>	       <tr>
+	            <!--td>HKG</td>
+	            <td>HKT</td-->
+	            <td>18:45</td>
+	            <td>21:30</td>
+	            <td>E8-257</td>
+	            <!--td>0</td-->
+	<td nowrap><input type="radio" id="fare0" name="fare0" value="16566_0_0_T" jidx="0" fidx="0" bidx="T" class="fareradio0" validate[required]" />1600.00</td>					</tr>
+
+		</table>
+	<!-- Fare Options Event -->
+	<script>
+	var adult = 1;
+	var child = 0;
+	var infant = 0;
+	var json = '[{"id":"16566","dow":"5","date":"2014-07-10","intdom":"I","org":"HKG","dst":"HKT","dep":"18:45","arr":"21:30","flight":"E8-257","via":"0","class":[{"fid":"3429","fclass":"Y","fcname":"Economy Class","bcname":"EXPRESS SAVE","bclass":"T","group":"0","cur":"HKD","adult":"1600.00","child":"1600.00","infant":"160.00","adult_vat":"0.07","child_vat":"0.07","infant_vat":"0.07"}]}]';
+/*
+	var collection = $('.fareradio');
+	collection.each(function() {
+//		alert(this.id);
+	});
+*/
+	$( '.fareradio0' ).change(function() {
+//	  alert( 'Handler for .change() called.' );
+	  var jidx = $(this).attr("jidx");
+	  var fidx = $(this).attr("fidx");
+	  var bidx = $(this).attr("bidx");
+//	  $('#sflight').text('Hello');
+	  var jstr = '[{"id":"16566","dow":"5","date":"2014-07-10","intdom":"I","org":"HKG","dst":"HKT","dep":"18:45","arr":"21:30","flight":"E8-257","via":"0","class":[{"fid":"3429","fclass":"Y","fcname":"Economy Class","bcname":"EXPRESS SAVE","bclass":"T","group":"0","cur":"HKD","adult":"1600.00","child":"1600.00","infant":"160.00","adult_vat":"0.07","child_vat":"0.07","infant_vat":"0.07"}]}]';
+	  var j = JSON.parse(jstr);
+	  var f = j[fidx];
+	  var foc = 0;
+	  	  var part = '#d';
+	  	  var fdate = "10JUL2014";
+//	  fdate = f['date'];
+	  if (jidx == 1)
+	  	part = '#a';
+//	  $(part + 'date').text(fdate);
+	  $(part + 'date').text(f['date']);
+	  $(part + 'flight').text(f['flight']);
+	  $(part + 'dep').text(f['dep']);
+	  $(part + 'arr').text(f['arr']);
+	  $(part + 'org').text(f['org']);
+	  $(part + 'dst').text(f['dst']);
+	  for(var bc = 0; bc<f['class'].length; bc++)
+	  	if (f['class'][bc]['bclass'] == bidx)
+		{
+			var bfare = f['class'][bc];
+//		  	alert( 'Handler for .change() called.' );
+	  		$(part + 'group').text((bfare['group']=='1')?"GROUP":"");
+			if (foc == 1)
+	  			$(part + 'group').text("FOC");
+	  		$(part + 'cur').text(bfare['cur'].toUpperCase());
+	  		$(part + 'fareadult').text((foc==1)?0:bfare['adult']);
+	  		$(part + 'adult').text(adult);
+	  		$(part + 'fareadult').text((foc==1)?0:bfare['adult']);
+			var atotal = adult * ((foc==1)?0:bfare['adult']);
+	  		$(part + 'fareadulttotal').text(atotal);
+	  		$(part + 'child').text(child);
+	  		$(part + 'farechild').text((foc==1)?0:bfare['child']);
+			var ctotal = child * ((foc==1)?0:bfare['child']);
+	  		$(part + 'farechildtotal').text(ctotal);
+	  		$(part + 'infant').text(infant);
+	  		$(part + 'fareinfant').text((foc==1)?0:bfare['infant']);
+			var itotal = infant * ((foc==1)?0:bfare['infant']);
+	  		$(part + 'fareinfanttotal').text(itotal);
+	  		$(part + 'faretotal').text(atotal + ctotal + itotal);
+			var vat = 0;
+			var tmptax = 0;
+	  		var taxs = JSON.parse('[{"name":"YR surcharge","amt":"208.00"},{"name":"Booking fee","amt":"20.00"},{"name":"HKG airport tax","amt":"120.00"},{"name":"YQ surcharge","amt":"45.00"}]');
+			for(var i = 0; i<taxs.length; i++)
+				tmptax += taxs[i]["amt"];
+			if ('I' == 'D')
+				vat = (Math.round((((foc==1)?0:bfare['adult'])*1+393)*100*0.07) / 100);
+			var tot  = parseFloat(atotal) + parseFloat(ctotal) + parseFloat(itotal) + ((parseFloat(vat) + 393) * (adult + child));
+			tot = Math.round(tot * 100)/100;
+	  		$(part + 'total').text(tot);
+			if (adult == 0)
+				$(part + 'adultdiv').hide();
+			if (child == 0)
+				$(part + 'childdiv').hide();
+			if (infant == 0)
+				$(part + 'infantdiv').hide();
+				
+			var str = "";
+			if ('I' == 'D')
+				str = 'VAT' + ' ' + vat + '\n\r';
+			str += "<table style='padding:0; margin:0;'>";
+			for(var i = 0; i<taxs.length; i++)
+				str += "<tr><td>" + taxs[i]["name"] + "</td><td>" + taxs[i]["amt"] + "</td></tr>";
+			str += "</table>";
+	  		$(part + 'tax').html(str);
+		}
+	  var atotal = (Math.round((Number($("#dtotal").text()) + Number($("#atotal").text()))*100)/100);
+	  $('#alltotal').text(atotal  + " HKD");
+	  $('#agent_alltotal').text(atotal);
+	});
+	
+		$("#dhead").show();
+		$("#dbody").show();
+		$('input:radio[name="fare0"]').filter('[value="16566_0_0_T"]').attr('checked', true);
+		$('input:radio[name="fare0"]').filter('[value="16566_0_0_T"]').change();
+	
+	</script>
