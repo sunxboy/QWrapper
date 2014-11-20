@@ -1,0 +1,57 @@
+{
+	"responseException":"Exception",
+	"responseNoResult":"\"Result\":false",
+	
+
+	"dealWithDirect":{
+		"check":"Direct flights",
+		"start":"<tbody class=\"none\" data-wdk-toggle-transition=\"none\">",
+		"end":"</tbody> </table>"
+	},
+	"dealWithConnections":{
+		"check":"Flights with connections",
+		"start":"<tbody class=\"none\" data-wdk-toggle-transition=\"none\">",
+		"end":"</tbody> </table>"
+	},
+	"flightSegement":{
+		"depDate":{
+			"value":"date"
+		},
+		"depairport":{
+			"value":"org"
+		},
+		"arrairport":{
+			"value":"dst"
+		},
+		"deptime":{
+			"value":"dep"
+		},
+		"arrtime":{
+			"value":"arr"
+		}
+		
+	},
+	"flightDetail":{
+		"depdate":{
+			"value":"date"
+		},
+		"monetaryunit":{
+			"default":"0",
+			"check":"All prices are in US$.",
+			"unit":"USD"
+		},
+		"price":{
+			"value":"adult"
+		},
+		"depcity":{
+			"value":"-"
+		},
+		"arrcity":{
+			"value":"-"
+		},
+		"wrapperid":{
+			"value":"-"
+		}
+		
+	}
+}

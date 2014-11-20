@@ -1,5 +1,3 @@
-
-
 <table class="fstable" id="fstable0" name="fstable0" >
 		           <tr>
 		                <!--td><strong>Org</strong></td>
@@ -14,7 +12,7 @@
 	            <td>21:30</td>
 	            <td>E8-257</td>
 	            <!--td>0</td-->
-	<td nowrap><input type="radio" id="fare0" name="fare0" value="16566_0_0_T" jidx="0" fidx="0" bidx="T" class="fareradio0" validate[required]" />1600.00</td>					</tr>
+	<td nowrap><input type="radio" id="fare0" name="fare0" value="16567_0_0_T" jidx="0" fidx="0" bidx="T" class="fareradio0" validate[required]" />1600.00</td>					</tr>
 
 		</table>
 	<!-- Fare Options Event -->
@@ -22,7 +20,7 @@
 	var adult = 1;
 	var child = 0;
 	var infant = 0;
-	var json = '[{"id":"16566","dow":"5","date":"2014-07-10","intdom":"I","org":"HKG","dst":"HKT","dep":"18:45","arr":"21:30","flight":"E8-257","via":"0","class":[{"fid":"3429","fclass":"Y","fcname":"Economy Class","bcname":"EXPRESS SAVE","bclass":"T","group":"0","cur":"HKD","adult":"1600.00","child":"1600.00","infant":"160.00","adult_vat":"0.07","child_vat":"0.07","infant_vat":"0.07"}]}]';
+	var json = '[{"id":"16567","dow":"6","date":"2014-07-11","intdom":"I","org":"HKG","dst":"HKT","dep":"18:45","arr":"21:30","flight":"E8-257","via":"0","class":[{"fid":"3429","fclass":"Y","fcname":"Economy Class","bcname":"EXPRESS SAVE","bclass":"T","group":"0","cur":"HKD","adult":"1600.00","child":"1600.00","infant":"160.00","adult_vat":"0.07","child_vat":"0.07","infant_vat":"0.07"}]}]';
 /*
 	var collection = $('.fareradio');
 	collection.each(function() {
@@ -35,12 +33,12 @@
 	  var fidx = $(this).attr("fidx");
 	  var bidx = $(this).attr("bidx");
 //	  $('#sflight').text('Hello');
-	  var jstr = '[{"id":"16566","dow":"5","date":"2014-07-10","intdom":"I","org":"HKG","dst":"HKT","dep":"18:45","arr":"21:30","flight":"E8-257","via":"0","class":[{"fid":"3429","fclass":"Y","fcname":"Economy Class","bcname":"EXPRESS SAVE","bclass":"T","group":"0","cur":"HKD","adult":"1600.00","child":"1600.00","infant":"160.00","adult_vat":"0.07","child_vat":"0.07","infant_vat":"0.07"}]}]';
+	  var jstr = '[{"id":"16567","dow":"6","date":"2014-07-11","intdom":"I","org":"HKG","dst":"HKT","dep":"18:45","arr":"21:30","flight":"E8-257","via":"0","class":[{"fid":"3429","fclass":"Y","fcname":"Economy Class","bcname":"EXPRESS SAVE","bclass":"T","group":"0","cur":"HKD","adult":"1600.00","child":"1600.00","infant":"160.00","adult_vat":"0.07","child_vat":"0.07","infant_vat":"0.07"}]}]';
 	  var j = JSON.parse(jstr);
 	  var f = j[fidx];
 	  var foc = 0;
 	  	  var part = '#d';
-	  	  var fdate = "10JUL2014";
+	  	  var fdate = "11JUL2014";
 //	  fdate = f['date'];
 	  if (jidx == 1)
 	  	part = '#a';
@@ -107,7 +105,7 @@
 	
 		$("#dhead").show();
 		$("#dbody").show();
-		$('input:radio[name="fare0"]').filter('[value="16566_0_0_T"]').attr('checked', true);
-		$('input:radio[name="fare0"]').filter('[value="16566_0_0_T"]').change();
+		$('input:radio[name="fare0"]').filter('[value="16567_0_0_T"]').attr('checked', true);
+		$('input:radio[name="fare0"]').filter('[value="16567_0_0_T"]').change();
 	
 	</script>

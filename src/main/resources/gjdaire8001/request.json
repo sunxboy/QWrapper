@@ -1,0 +1,19 @@
+{
+	"actionUrl":"http://ashley4.com/webaccess/cityairways/getfs.php",
+	"contentType":"text/html;charset=utf-8",
+	"method":"get",
+	"departureCity":"-",
+	"arrivalCity":"-",
+	"dateFormat":"yyyy/MM/dd",
+	"departureDate":"-",
+	"bookingInputs":{
+		"ro":"0",
+		"from":"-",
+		"to":"-",
+		"cur":"HKD",
+		"sdate":"-",
+		"adult":"1",
+		"child":"0",
+		"infant":"0"
+	}
+}

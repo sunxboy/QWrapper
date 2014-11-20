@@ -1,0 +1,48 @@
+{
+	"responseException":"Exception",
+	"responseNoResult":"Today Flight is full, select an other day or check later for any seat released.",
+	"resultStart":"var json = '",
+	"resultEnd":"';",
+	"flightNo":{
+		"value":"flight"
+	},
+	"flightSegement":{
+		"depDate":{
+			"value":"date"
+		},
+		"depairport":{
+			"value":"org"
+		},
+		"arrairport":{
+			"value":"dst"
+		},
+		"deptime":{
+			"value":"dep"
+		},
+		"arrtime":{
+			"value":"arr"
+		}
+		
+	},
+	"flightDetail":{
+		"depdate":{
+			"value":"date"
+		},
+		"monetaryunit":{
+			"value":"cur"
+		},
+		"price":{
+			"value":"adult"
+		},
+		"depcity":{
+			"value":"-"
+		},
+		"arrcity":{
+			"value":"-"
+		},
+		"wrapperid":{
+			"value":"-"
+		}
+		
+	}
+}

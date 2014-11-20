@@ -1,0 +1,17 @@
+巴西塔姆航空公司 
+http://www.tam.com.br/b2c/jsp/default.jhtml
+
+TAM Brazilian Airlines是巴西最主要的航空公司，占据巴西航空旅行市场的34%，年收入12 亿美元。 拥有7 千1 百名员工。TAM每天管理着遍布7个国家(包括巴西国内的40个城市和国外的9个目的地)的610个航班。
+
+TAM航空公司运营着由86架飞机组成的空中客车机队，其中包括15架A319飞机、61架A320飞机和10架A330-200飞机，是空中客车在拉丁美洲的最大用户。
+
+TAM Brazilian Airlines曾获第25届OAG年度中/南美洲与加勒比海地区最佳航空公司提名。
+
+response format:
+<tbody class="none" data-wdk-toggle-transition="none">    
+<tr class="flight flightId-10" data-blocationfull="x" data-departuredate="x" data-departuretime="x" data-departurecitycode="x" data-departureairportcode="x" 
+data-elocationfull="x" data-arrivaldate="x" data-arrivaltime="x" data-arrivalcitycode="x" data-arrivalairportcode="x" data-aircraft="x" data-airlinecode="x" 
+data-rpduration="x" data-operatedby="x"  data-airlinecompany="x" data-ontime-performance="x" data-baggage-allowance="" data-baggage-allowance-link="" 
+data-anac-link="" data-flightnumber = "x" data-number-of-stops="x">...</tr>
+............
+</tbody>

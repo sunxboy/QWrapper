@@ -1,19 +1,23 @@
-package com.qunar.wrapper;
+package com.qunar.wrapper.task;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
-import java.io.File;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
+import org.hamcrest.Matchers;
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import com.alibaba.fastjson.JSON;
+import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
+import com.google.common.io.Resources;
 import com.qunar.qfwrapper.bean.booking.BookingInfo;
 import com.qunar.qfwrapper.bean.booking.BookingResult;
 import com.qunar.qfwrapper.bean.search.BaseFlightInfo;
@@ -22,6 +26,7 @@ import com.qunar.qfwrapper.bean.search.FlightSearchParam;
 import com.qunar.qfwrapper.bean.search.FlightSegement;
 import com.qunar.qfwrapper.bean.search.ProcessResultInfo;
 import com.qunar.qfwrapper.constants.Constants;
+import com.qunar.wrapper.model.WrapperRequest;
 
 public class Wrapper_gjdaire8001Test {
 
@@ -42,21 +47,21 @@ public class Wrapper_gjdaire8001Test {
         assertThat(result.isRet(), equalTo(true));
 
         BookingInfo booking = result.getData();
-        assertThat(booking.getAction(), equalTo("http://ashley4.com/webaccess/cityairways/fareresult.php"));
+        assertThat(booking.getAction(), equalTo("http://ashley4.com/webaccess/cityairways/getfs.php"));
         assertThat(booking.getContentType(), equalTo("text/html;charset=utf-8"));
-        assertThat(booking.getMethod(), equalTo("post"));
+        assertThat(booking.getMethod(), equalTo("get"));
         Map<String, String> inputs = booking.getInputs();
         assertThat(inputs.get("ro"), equalTo("0"));
         assertThat(inputs.get("from"), equalTo("HKG"));
         assertThat(inputs.get("to"), equalTo("HKT"));
         assertThat(inputs.get("cur"), equalTo("HKD"));
         assertThat(inputs.get("sdate"), equalTo(bookDate.toString("yyyy/MM/dd")));
-        assertThat(inputs.get("edate"), equalTo(bookDate.toString("yyyy/MM/dd")));
+        // assertThat(inputs.get("edate"), equalTo(bookDate.toString("yyyy/MM/dd")));
         assertThat(inputs.get("adult"), equalTo("1"));
         assertThat(inputs.get("child"), equalTo("0"));
         assertThat(inputs.get("infant"), equalTo("0"));
-        assertThat(inputs.get("view"), equalTo("0"));
-        assertThat(inputs.get("btnsubmit"), equalTo("Flight Search"));
+        // assertThat(inputs.get("view"), equalTo("0"));
+        // assertThat(inputs.get("btnsubmit"), equalTo("Flight Search"));
     }
 
     @Test
@@ -137,15 +142,18 @@ public class Wrapper_gjdaire8001Test {
 
     @Test
     public void whenGetResultHTMLThenCheckProcessResult() throws Exception {
-        Wrapper_gjdaire8001 wrapper = new Wrapper_gjdaire8001();
         // given
-        File file = new File(getClass().getResource("/gjdaire8001/result.txt").getFile());
-        String html = FileUtils.readFileToString(file);
-        DateTime bookDate = DateTime.now().withTimeAtStartOfDay().plusDays(2);
+        Wrapper_gjdaire8001 mockWrapper = Mockito.spy(new Wrapper_gjdaire8001());
+        DateTime bookDate = DateTime.parse("2014-07-11");
         FlightSearchParam searchParam = buildFlightSearchParam(bookDate, dep, arr);
 
+        URL url = Resources.getResource("gjdaire8001/result.txt");
+        String html = Resources.toString(url, Charsets.UTF_8);
+        Mockito.when(mockWrapper.getHtml(searchParam)).thenReturn(html);
+
         // when
-        ProcessResultInfo processResult = wrapper.process(html, searchParam);
+        String flightPlanResult = mockWrapper.getHtml(searchParam);
+        ProcessResultInfo processResult = mockWrapper.process(flightPlanResult, searchParam);
 
         // then
         assertThat(processResult.isRet(), equalTo(true));
@@ -175,6 +183,19 @@ public class Wrapper_gjdaire8001Test {
         assertThat(segements.getArrairport(), equalTo("HKT"));
         assertThat(segements.getDeptime(), equalTo("18:45"));
         assertThat(segements.getArrtime(), equalTo("21:30"));
+    }
+
+    @Test
+    public void whenBookingOrderFromJsonThenGenerateBookOrderObject() throws Exception {
+        // given
+        URL url = Resources.getResource("gjdaire8001/request.json");
+        String jsonContent = Resources.toString(url, Charsets.UTF_8);
+
+        // when
+        WrapperRequest object = JSON.parseObject(jsonContent, WrapperRequest.class);
+
+        // then
+        assertThat(object, Matchers.notNullValue());
     }
 
     private FlightSearchParam buildFlightSearchParam(DateTime bookDate, String dep, String arr) {

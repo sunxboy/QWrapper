@@ -1,0 +1,11 @@
+{
+"actionUrl":"http://www.test.com",
+"contentType":"UTF-8",
+"method":"POST",
+"bookingInputs":
+{
+"key1":"value1",
+"key2":"value3",
+"key3":"value4"
+},
+}
